@@ -1,0 +1,20 @@
+#  Template NodeJS build
+
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        caches: 
+        - node
+        script:
+        - npm install
+        - pipe: snyk/snyk-scan:0.4.6
+          variables: 
+            SNYK_TOKEN: $Snyk_Token
+            LANGUAGE: "npm"
+            MONITOR: "true"
+   
